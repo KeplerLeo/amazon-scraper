@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    working_dir: /app
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4173:4173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    tty: true
+    stdin_open: true
+    depends_on:
+      - backend
